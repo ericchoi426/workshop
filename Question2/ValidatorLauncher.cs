@@ -35,13 +35,43 @@ namespace Question2
             }
         }
 
+        public static bool processCardInfo()
+        {
+            string line;
+            while (true)
+            {
+                line = Console.ReadLine();
+
+                if (line == null) continue;                
+
+                if (line.Equals("DONE"))
+                {
+                    return true;
+                }
+                else
+                {
+                    if (line.Length < 29)
+                    {
+                        Console.WriteLine("Wrong Card input");
+                        continue;
+                    }
+
+                    CLogIn.validate(line);
+                }
+            }
+
+            return false;
+        }
+
         static void Main(string[] args)
         {
             CLogIn.load(logDataPath);
             processLogIn();
-            CLogIn.getBusId();
-
-
+            while(true)
+            {
+                if (!CLogIn.getBusId()) return;
+                processCardInfo();
+            } 
         }
     }
 }
